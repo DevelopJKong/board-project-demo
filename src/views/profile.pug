@@ -1,0 +1,58 @@
+extends base
+include mixins/card
+block content
+  div.board-form-wrapper  
+    h3.title-name #{user.name} Profile
+    img(src=`${user.avatar ? (isHeroku ? user.avatar : "/" + user.avatar) : "/image/cafe_logo.png"}` width="100" height="100")
+    div.modal__btn.none
+      button(onclick="_onClick()") ItemList
+  div.content-box
+    each board in user.boards.reverse() 
+      +boardMixins(board)
+    else
+      span
+      span.end-box 아직 게시물이 없어요
+      span.center-box 🙄
+
+  div.item-list.none
+    div.item-list__info 
+      div.item-list__title
+        h2 My Item List 
+        i(onclick="_onClick()").fas.fa-times
+      div.item-list__content-wrapper
+        each order in user.orders.reverse()
+          div.item-list__content
+            ul.item-list__number
+              li 
+                img.download__img(src=`${"/" + order.item.itemImg}`)
+                p #{order.merchantUid}
+            ul.item-list__datas
+              if order.status === "ready"
+                li 
+                  span 결제상태: 
+                  span 대기중
+              else
+                li 
+                  span 결제상태: 
+                  span 완료
+              li 
+                span 결제방법: 
+                span #{order.payMethod === "vbank" ? "가상계좌" : "일반결제"}
+              li 
+                span 가격: 
+                span #{order.amount}원 💰
+            ul.item-list__btn
+              li
+                button.download(onclick="_onDownload()") Download
+                a.download__link.none(href=`${"/" + order.item.itemImg}` download=`${order.item.name}`) 
+            ul.item-list__btn                    
+              li
+                button.refund(onclick="_onRefund()") 환불
+        else
+          span
+          span.end-box 아직 구매하신 상품이 없어요
+          span.center-box 🙄
+    script(src="/assets/js/profile.js")
+
+
+

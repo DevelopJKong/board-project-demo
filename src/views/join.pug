@@ -1,0 +1,50 @@
+extends base
+block content
+    div.login-form-wrapper
+        div.login-form
+            if errorMessage
+                p(style="color: red;")=errorMessage
+                br
+            h3.title-name ☕Join
+            div.col-12
+                form(method="POST" action="/users/certifications")
+                    label(for="inputPhoneNum").form-label PhoneNumber
+                    input(type="text" placeholder="PhoneNumber" required).form-control#inputPhoneNum
+                    br
+                    button(type="submit").btn.btn-warning#auth 인증하기 📌
+                    br
+                    br
+                p(style="color:green; display:none;")#authText 
+                p(style="color:red; display:none;")#authFailText 
+                br
+            form(method="POST")#createForm.row.g-3
+                div.col-md-6
+                    label(for="inputUser").form-label User name
+                    input(type="text" placeholder="User name" name="username" required).form-control#inputUser
+                div.col-md-6
+                    label(for="inputNickname").form-label Nickname
+                    input(type="text" placeholder="Nickname" name="name" required).form-control#inputNickname
+                div.col-12
+                    label(for="inputPassword").form-label Password
+                    input(type="password" placeholder="Password" name="password" required).form-control#inputPassword
+                div.col-12
+                    label(for="inputPasswordConfirm").form-label Confirmation Password
+                    input(type="password" placeholder="Confirmation Password" name="password2" required).form-control#inputPasswordConfirm
+                div.col-12
+                    label(for="inputEmail").form-label Email
+                    input(type="email" placeholder="Email" name="email" required).form-control#inputEmail
+                div.col-12
+                    label(for="inputRegion").form-label Region
+                    input(type="text" placeholder="Region" name="region" required).form-control#inputRegion
+                div.col-12    
+                    input(type="hidden" name="phoneNum" required).form-control#authNum
+                div.col-12
+                    button(type="submit").btn.btn-primary#createUser Sign in
+                    br
+                    br
+                hr
+                div.col-12
+                    p 계정이 이미 있으신가요? 💬
+                    br
+                    a(href="/login").btn.btn-secondary Login &rarr;
+    script(src="/assets/js/join.js")
