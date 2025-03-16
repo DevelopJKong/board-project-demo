@@ -10,10 +10,14 @@ boardRouter
   .route('/:id([0-9a-f]{24})/edit')
   .all(protectorMiddleware)
   .get(getEditBoard)
-  .post(boardImgFiles.single('boardImg'), postEditBoard);
+  .post(boardImgFiles.single('boardImg') as any, postEditBoard);
 
 boardRouter.route('/:id([0-9a-f]{24})/delete').all(protectorMiddleware).get(getDeleteBoard);
 
-boardRouter.route('/write').all(protectorMiddleware).get(getWriteBoard).post(boardImgFiles.single('boardImg'), postWriteBoard);
+boardRouter
+  .route('/write')
+  .all(protectorMiddleware)
+  .get(getWriteBoard)
+  .post(boardImgFiles.single('boardImg') as any, postWriteBoard);
 
 export default boardRouter;

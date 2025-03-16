@@ -5,7 +5,11 @@ import { itemFiles, protectorMiddleware } from '../middlewares';
 
 const shopRouter = express.Router();
 
-shopRouter.route('/').all(protectorMiddleware).get(getShopList).post(itemFiles.single('itemImg'), postShopList);
+shopRouter
+  .route('/')
+  .all(protectorMiddleware)
+  .get(getShopList)
+  .post(itemFiles.single('itemImg') as any, postShopList);
 
 shopRouter.route('/list').get(getShopItem);
 

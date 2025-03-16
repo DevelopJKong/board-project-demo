@@ -19,7 +19,11 @@ import { protectorMiddleware, publicOnlyMiddleware, avatarFiles } from '../middl
 const userRouter = express.Router();
 
 userRouter.route('/certifications').post(postCertification);
-userRouter.route('/edit').all(protectorMiddleware).get(getEdit).post(avatarFiles.single('avatar'), postEdit);
+userRouter
+  .route('/edit')
+  .all(protectorMiddleware)
+  .get(getEdit)
+  .post(avatarFiles.single('avatar') as any, postEdit);
 userRouter.route('/check').get(getCheck).post(postCheck);
 userRouter.route('/logout').all(protectorMiddleware).get(logout);
 userRouter.route('/naverLogin').all(publicOnlyMiddleware).get(naverLogin);
